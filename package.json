@@ -1,0 +1,22 @@
+{
+  "name": "curso-css",
+  "version": "0.0.0",
+  "description": "Curso CSS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mtlv99/curso-css.git"
+  },
+  "keywords": [
+    "css"
+  ],
+  "author": "mtlv99",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mtlv99/curso-css/issues"
+  },
+  "homepage": "https://github.com/mtlv99/curso-css#readme"
+}
