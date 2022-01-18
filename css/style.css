@@ -6,3 +6,32 @@ Medium green: #55c57a
 Dark green: #28b485
 
 */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #777;
+    padding: 30px; /* No se hereda */
+}
+
+.header {
+    height: 95vh; /* 95% de altura del viewport */
+    /* Se ponen uno seguido del otro para hacer un grandient, y usar una imagen al mismo tiempo. El primero es el que se
+    aplicará encima del otro */
+    background-image: linear-gradient(to left bottom,rgba(126, 213, 111, 0.8), rgba(85, 197, 122, 0.8)), url(../img/hero.jpg);
+    background-size: cover; /* Se asegura que la imagen siempre llene todo el contenedor */
+    background-position: top; /* determina que parte de la imagen se deberia mantener siempre enfocada, se divide en bg-position x & y */
+    /* Recorta la imagen, empezando por la parte de arriba a la izquierda,
+    y siguiendo hacia la parte derecha arriba, en el sentido de las agujas del reloj */
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+    /* Ejemplo de un rombo/diamante */
+    /* clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); */
+}
