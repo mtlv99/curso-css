@@ -8,6 +8,6 @@ English warning: For this repo, I wrote all the notes in Spanish, this is a pers
 
 
 ### Nota
-Repo para tomar notas acerca de CSS. Es bastante probable que este repo no esté muy limpio, lo uso para tomar apuntes que me sirven para otros proyectos.
+Repo para tomar notas acerca de CSS, uso bastante Spanglish. Además, es bastante probable que este repo no esté muy limpio, lo uso para tomar apuntes que me sirven para otros proyectos.
 
 
