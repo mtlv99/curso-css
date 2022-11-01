@@ -14,6 +14,7 @@ Dark green: #28b485
 }
 
 body {
+    /* Es importante escoger la fuente en el body, para que se herede a todos los hijos */
     font-family: "Lato", sans-serif;
     font-weight: 400;
     font-size: 16px;
@@ -34,4 +35,200 @@ body {
     clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
     /* Ejemplo de un rombo/diamante */
     /* clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); */
+    /* Position relative funciona como referencia para los position absolute de los elementos hijos */
+    position: relative;
+}
+
+.logo-box {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+}
+
+.logo {
+    /* No se necesita especificar el tamaño del width en imagenes, el browser lo calcula automaticamente */
+    /* 
+        Viceversa tambien, con solo especificar el width, tambien se calcula el height, aunque es mas facil controlar
+        los elementos usando height
+    */
+    height: 35px;
+}
+
+.text-box {
+    /* Position absolute busca al elemento padre que tenga position relative, y si no lo tiene lo hará con respecto al elemento root */
+    position: absolute;
+    /* 40% para contrarrestar el clip-path de la parte de abajo de la imagen */
+    top: 40%;
+    left: 50%;
+    /* -50% relativo al mismo elemento, se translada hacia arriba con 50% del height mismo elemento, y hacia la izquierda tmb con el 50% del width */
+    transform: translate(-50%, -50%);
+    /* centra el botón del header */
+    text-align: center;
+}
+
+.heading-primary {
+    color: #FFFFFF; /* Presencia de todos los colores al mismo tiempo */
+    text-transform: uppercase;
+    /* Esta propiedad sirve para ocultar el lado trasero de un elemento cuando este lado es visible al usuario. Similar a las normales en 3D */
+    /* Arregla un bug en las animaciones que hace que se "sacudan" o se desplazen hacia arriba los elementos al ser animados (esto no es parte de la animacion) */
+    /* Nota: parece que este bug ya fue arreglado porque no lo logré replicar, pero es bueno saber que es posible que suceda */
+    backface-visibility: hidden;
+    margin-bottom: 60px;
+}
+
+.heading-primary-main {
+    /* los span vienen por defecto como inline */
+    /* los block level elements ocupan todo el width que tienen disponible, y añaden line breaks antes y después del elemento */
+    display: block;
+    font-size: 60px;
+    font-weight: 400; /* Cuidado! los h1 vienen con un font-weight mas alto por defecto */
+    letter-spacing: 35px;
+    animation-name: moveInLeft;
+    animation-duration: 1s;
+    /* Suavidad de la animacion al inicio y al final */
+    animation-timing-function: ease-out;
+    
+    /*  // Durante el tiempo en que espera, el elemento se queda con las propiedades que tiene por defecto, como si no tuviera una animacion
+        animation-delay: 3s;
+        // Las veces que se repite la animacion
+        animation-iteration-count: 3;
+    */
+}
+
+.heading-primary-sub {
+    display: block;
+    font-size: 20px;
+    font-weight: 700; /* Cuidado! los h2 vienen con un font-weight alto por defecto */
+    letter-spacing: 17.4px;
+    animation: moveInRight 1s ease-out;
+}
+
+/* 2 tipos de animaciones
+- transition property: la más facil, se activa con eventos (como un hover)
+- animaciones con keyframes: mas avanzadas y flexibles
+*/
+
+/* Tambien se puede aplicar en un hover, por ejemplo */
+/* .logo:hover {
+    animation: moveInRight 1s ease-out;
+} */
+
+@keyframes moveInLeft {
+    /* Los browsers están optimizados para animar 2 cosas, la opacidad y el transform */
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+
+    80% {
+        transform: translateX(10px);
+    }
+    
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+
+    }
+}
+
+@keyframes moveInRight {
+    /* Los browsers están optimizados para animar 2 cosas, la opacidad y el transform */
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    80% {
+        transform: translateX(-10px);
+    }
+    
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+
+    }
+}
+
+@keyframes moveInBottom {
+    /* Los browsers están optimizados para animar 2 cosas, la opacidad y el transform */
+    0% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+
+    }
+}
+
+/* link: pseudo para links sin visitar
+   visited: pseudo para links visitados
+ */
+.btn:link,
+.btn:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 15px 40px;
+    /* Trata el box model trata al elemento como un block normal, permite añadir, paddings, height y width,
+    sin ocupar todo el espacio disponible, por lo que se puede aplicar la propiedad text-align!! :O */
+    /* Cambiar por block para ver la diferencia de forma mas clara */
+    display: inline-block;
+    border-radius: 100px;
+    /* las animacion se haran con relacion a este estado inicial, el transition se coloca en el elemento base */
+    transition: all .2s;
+    /* Referencia para los pseudoelementos animados del boton */
+    position: relative;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow:  0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Para cuando se tiene un boton presionado */
+.btn:active {
+    /* -1px con relación al estado inicial, no del hover */
+    transform: translateY(-1px);
+    /* Para que la sombra parezca mas cercana al fondo */
+    box-shadow:  0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Agrega un elemento virtual después del elemento seleccionado, este elemento es tratado como un hijo del elemento seleccionado */
+.btn::after {
+    /* Propiedades requeridas para que el pseudoelemento aparezca, incluso aunque el contenido esté vacio */
+    content: '';
+    display: inline-block;
+    /* El resto son para recrear el mismo boton */
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+}
+
+.btn-white {
+    background-color: #fff;
+    color: #777;
+}
+
+.btn-white::after {
+    background-color: #fff;
+}
+
+/* Selecciona el pseudo elemento after cuando se hace hover sobre el boton */
+.btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+}
+
+.btn-animated {
+    animation: moveInBottom .5s ease-out .75s;
+    /* Hace que los estilos definidos en el primer keyframe de la animacion, se van a aplicar al estado inicial del elemento */
+    /* Primer keyframe de la animacion: 0% */
+    animation-fill-mode: backwards;
 }
