@@ -1,0 +1,11 @@
+// Cuando se utilizan floats y no se usa clearfix, el elemento padre tendrá un height de 0.
+// Tiene sentido ya que no hay ningun elemento que esté dentro del elemento, teoricamente (ya que todos están flotando).
+// clearfix añade un pseudoelemento después del elemento que va a limpiar los floats
+
+@mixin clearfix {
+    &::after {
+        content: "";
+        display: table; // lo común es usar un display table para limpiar los floats
+        clear: both;
+    }
+}

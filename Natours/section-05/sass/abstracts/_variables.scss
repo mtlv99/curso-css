@@ -1,0 +1,15 @@
+// Paleta de colores
+$color-primary: #55c57a;
+$color-primary-light: #7ed56f;
+$color-primary-dark: #28b485;
+
+$color-grey-dark: #777;
+$color-white: #fff;
+$color-black: #000;
+
+// Grid
+// 1140px es un estandar de tamaño
+// recordar que 1rem = 10px actualmente
+$grid-width: 114rem; // 1140 / 10 = 114rem
+$gutter-vertical: 8rem;
+$gutter-horizontal: 6rem;

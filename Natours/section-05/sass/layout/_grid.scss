@@ -1,0 +1,66 @@
+.row {
+    @include clearfix;
+
+    max-width: $grid-width; 
+    background-color: #eee;
+    margin: 0 auto; // centra un block element dentro de otro block element
+    
+    // Selecciona todo excepto el ultimo elemento
+    &:not(:last-child) {
+        margin-bottom: $gutter-vertical;
+    }
+    
+    // el ^ establece que el valor debe comenzar con "col-"
+    // también existe el *, pero ese hace match con todos los selectors, sin importar si empieza con ese valor
+    // asi como $, que significa que el valor debe terminar con lo especificado
+    [class^="col-"] {
+        background-color: bisque;
+        // layout con floats
+        float: left;
+
+        // Todos las columnas deberian tener un margin-right excepto la ultima
+        &:not(:last-child) {
+            margin-right: $gutter-horizontal;
+        }
+    }
+
+    .col-1-of-2 {
+        // Calc permite mezclar unidades diferentes, 
+        // debido a que el browser ya sabe el resultado de la conversion del resto de unidades
+        // Para usar variables dentro del calc hay que usar una sintaxis diferente
+        // similar a la de los templates literales
+        // todo el width posible menos el gutter establecido dividido entre 2 (porque son 2 columnas)
+        width: calc((100% - #{$gutter-horizontal}) / 2);
+
+
+    }
+
+    .col-1-of-3 {
+        // numero de gutters = 2 -> (columnas - 1) => recordar que al ultimo elemento no se le aplica el gutter
+        // todo el width posible menos 2 gutters establecidos dividido entre 3 (porque son 3 columnas)
+        width: calc((100% - 2 * #{$gutter-horizontal}) / 3);
+    }
+
+    .col-2-of-3 {
+        // 2 veces el tamaño de un elemento normal + un gutter adicional
+        width: calc(2 * ((100% - 2 * #{$gutter-horizontal}) / 3) + #{$gutter-horizontal});
+    }
+
+    .col-1-of-4 {
+        // numero de gutters = 3 -> (columnas - 1) => recordar que al ultimo elemento no se le aplica el gutter
+        // todo el width posible menos 3 gutters establecidos dividido entre 4 (porque son 4 columnas)
+        width: calc((100% - 3 * #{$gutter-horizontal}) / 4);
+    }
+
+    .col-2-of-4 {
+        // 2 veces el tamaño de un elemento normal + un gutter adicional
+        width: calc(2 * ((100% - 3 * #{$gutter-horizontal}) / 4) + #{$gutter-horizontal});
+    }
+
+    .col-3-of-4 {
+        // 3 veces el tamaño de un elemento normal + 2 gutters adicionales
+        width: calc(3 * ((100% - 3 * #{$gutter-horizontal}) / 4) + 2 * #{$gutter-horizontal});
+    }
+
+
+}
