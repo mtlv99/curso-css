@@ -1,0 +1,43 @@
+.composition {
+
+    // Para que las imagenes tengan una referencia sobre donde colocarse
+    position: relative; 
+
+    &__photo {
+        width: 55%; // manera correcta de tratar las imagenes para que sean responsive.
+        box-shadow: 0 1.5rem 4rem rgba($color-black, .4);
+        // border-radius: 2px;
+        position: absolute;
+        z-index: 10; // z-index bajo para que al hacer hover la imagen seleccionada se vaya al frente y resto al fondo
+        transition: all .2s;
+        outline-offset: 2rem;
+
+        &--p1 {
+            left: 0;
+            top: -2rem;
+        }
+        &--p2 {
+            right: 0;
+            top: 2rem;
+        }
+        &--p3 {
+            left: 20%;
+            top: 10rem;
+        }
+
+        &:hover {
+            // outline: similar a un border pero permite añadir un offset
+            outline: 1.5rem solid $color-primary; 
+            transform: scale(1.05) translateY(-.5rem);
+            box-shadow: 0 2.5rem 4rem rgba($color-black, .5);
+            z-index: 20;
+            // border-radius: 0; // arregla bug de chrome que ponia el borde redondo
+        }
+    }
+
+    // Cuando el contenedor está siendo enfocado, encoge las imagenes que no están siendo enfocadas
+    // composition:hover composition__photo:not(:hover) {}
+    &:hover &__photo:not(:hover) {
+        transform: scale(.95);
+    }
+}

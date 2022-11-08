@@ -2,7 +2,7 @@
     @include clearfix;
 
     max-width: $grid-width; 
-    background-color: #eee;
+    // background-color: #eee;
     margin: 0 auto; // centra un block element dentro de otro block element
     
     // Selecciona todo excepto el ultimo elemento
@@ -14,7 +14,7 @@
     // también existe el *, pero ese hace match con todos los selectors, sin importar si empieza con ese valor
     // asi como $, que significa que el valor debe terminar con lo especificado
     [class^="col-"] {
-        background-color: bisque;
+        // background-color: bisque;
         // layout con floats
         float: left;
 
