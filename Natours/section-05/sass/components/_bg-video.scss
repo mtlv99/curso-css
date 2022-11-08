@@ -1,0 +1,20 @@
+.bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    opacity: .15;
+    overflow: hidden; // para ocultar los bordes del video y que se siga viendo el padding que tiene el body
+
+    // Selects the video itself
+    &__content {
+        // Hace que el video como tal no haga overflow
+        height: 100%;
+        width: 100%;
+        // Es bastante similar al background-cover, pero es util para videos y otros elementos html.
+        // Sin esto, el video mantendrá el aspect ratio y no cubrirá todo el fondo.
+        object-fit: cover;
+    }
+}
