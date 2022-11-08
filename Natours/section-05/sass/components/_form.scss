@@ -1,0 +1,114 @@
+.form {
+
+    &__group:not(:last-child) {
+        margin-bottom: 2rem;
+    }
+
+    &__input {
+        font-size: 1.5rem;
+        // los browser añaden un font-family diferente a los input por defecto, por lo que hay que forzarlo a heredar del padre
+        // y es mucho mas facil que herede a setear manualmente de nuevo el font-family acá.
+        font-family: inherit;
+        // Tambien se debe heredar el color para poder cambiarlo dentro del input 
+        color: inherit;
+        padding: 1.5rem 2rem; // mas padding horizontal hace que los input se vean mejor
+        border-radius: 2px;
+        background-color: rgba($color-white, .5);
+        border: none;
+        border-bottom: 3px solid transparent; // añade un border extra invisible para que no de un pequeño salto cuando el input esté focused
+        width: 90%;
+        display: block;
+        transition: all .3s; // para animar el color del texto y el border-bottom
+
+        // selecciona el pseudoelemento del placeholder, y arriba se debe setear como inherit para que haga override al color del input por defecto
+        &::-webkit-input-placeholder {
+            color: $color-grey-dark-2;
+        }
+
+        // para ocultar el outline
+        &:focus {
+            outline: none;
+            box-shadow: 0 1rem 2rem rgba($color-black, .1);
+            border-bottom: 3px solid $color-primary;
+        }
+
+        // solo deberia pasar cuando el input está focused y está invalido al mismo tiempo
+        &:focus:invalid {
+            border-bottom: 3px solid $color-secondary-dark;
+        }
+    }
+
+    &__label {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-left: 2rem; // para que esté alineado con el texto de arriba (placeholder y value)
+        margin-top: .7rem;
+        display: block;
+        transition: all .3s;
+    }
+
+
+    // Tambien se puede usar ~
+    // que permite seleccionar elementos que esten al mismo nivel (adjacent sibling), pero no tienen que estar seguidos, a diferencia del +
+    // para poder aplicar este styling, el input tiene que venir antes del label, si no, no existe manera alguna para hacer el selector
+    // el placeholder-shown selecciona cualquier input que esté mostrando un placeholder
+    &__input:placeholder-shown + &__label {
+        // Diferencia entre ellos es si son animables o no
+        opacity: 0; // Si se puede animar
+        visibility: hidden; // NO se puede animar
+        // El truco acá está en que apenas se deje de mostrar el placeholder (porque se escribe), el elemento vuelve a su posición original,
+        // y pierde todos estos styles definidos acá (el opacity y el visibility)
+        transform: translateY(-4rem);
+    }
+
+    &__radio-group {
+        width: 49%; // Valor menor para que aparezcan lado a lado. Es mejor que usar floats.
+        display: inline-block; // para que se muestren lado a lado
+    }
+
+    // Para ocultar el radio-button que trae el browser por defecto
+    &__radio-input {
+        display: none;
+    }
+
+    // actualmente no se pueden customizar los radio button que vienen el browser por defecto, por lo que es mejor esconder el que viene por default
+    // e implementar uno nosotros.
+    &__radio-button {
+        display: inline-block; // para poder usar el height y width
+        height: 3rem;
+        width: 3rem;
+        border: 5px solid $color-primary;
+        border-radius: 50%;
+        position: absolute; // position absolute tambien puede servir como referencia a un children, en este para para el pseudelemento after
+        left: 0;
+        top: -.4rem; // para alinear el radio-button con el label
+
+        &::after {
+            content: "";
+            display: block;
+            height: 1.3rem;
+            width: 1.3rem;
+            border-radius: 50%;
+            position: absolute; // relativo al padre radio-button
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: $color-primary;
+            opacity: 0; // para que este deshabilitado por defecto
+            transition: opacity .2s;
+        }
+    }
+
+    &__radio-label {
+        font-size: $default-font-size;
+        cursor: pointer;
+        position: relative; // para que sea referencia del custom radio-button
+        padding-left: 5rem; // para darle espacio al radio-buttom custom
+    }
+
+    // tambien se puede usar +, pero se usa ~ para demostrar que tambien funciona.
+    // seleccciona el radio input que esté checked y luego busca el radio-label que contiene el span con el radio-button custom
+    &__radio-input:checked ~ &__radio-label &__radio-button::after {
+        opacity: 1;
+    }
+}

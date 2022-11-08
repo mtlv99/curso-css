@@ -1,5 +1,7 @@
 
 .btn {
+    // los buttons no tienen las pseudoclases link ni visited
+    &, // por lo que se pone un ampersand para que los ultimos cambios tambien apliquen para el button
     &:link,
     &:visited {
         text-transform: uppercase;
@@ -10,6 +12,10 @@
         transition: all .2s;
         position: relative;
         font-size: $default-font-size;
+
+        // Cambios para el element <button> nada mas
+        border: none;
+        cursor: pointer;
     }
     
     &:hover {
@@ -22,7 +28,9 @@
         }
     }
     
-    &:active {
+    &:active,
+    &:focus { // para que el outline se muestre igual que el hover en vez de solo ocultarlo, por razones de accesibilidad
+        outline: none;
         transform: translateY(-1px);
         box-shadow:  0 .5rem 1rem rgba($color-black, 0.2);
     }
