@@ -1,0 +1,78 @@
+.story {
+    width: 75%;
+    margin: 0 auto;
+    box-shadow: 0 3rem 6rem rgba($color-black, .1);
+    background-color: $color-white;
+    border-radius: 3px;
+    padding: 6rem;
+    padding-left: 9rem;
+    font-size: $default-font-size;
+    // Parece que hacer varios skews está haciendo que el texto se vuelva borroso??? Bug de Chrome parece.
+    transform: skewX(-12deg);
+
+    // hay un problema acá, story__shape ya tiene un transform.
+    // actualmente en css no es posible declarar 2 transform al mismo tiempo, asi que en este caso
+    // hay que ponerlos de forma separada (cada uno en su respectivo selector)
+    // & > * {
+    //     transform: skewX(12deg);
+    // }
+
+    &__shape {
+        width: 15rem;
+        height: 15rem;
+        background-color: orange;
+        // shape-outside necesita que el elemento este flotante, y que tenga un width y height definidos
+        float: left;
+        -webkit-shape-outside: circle(50% at 50% 50%);
+        shape-outside: circle(50% at 50% 50%);
+
+        -webkit-clip-path: circle(50% at 50% 50%);
+        clip-path: circle(50% at 50% 50%);
+
+        // La mejor manera de mover un elemento flotante, no usar paddings ni margins.
+        transform: translateX(-3rem) skewX(12deg);
+
+        // referencia para el story__caption
+        position: relative;
+    }
+
+    &__img {
+        // no usar width acá porque la imagen es mas larga de ancho que de altura
+        // la altura es la que deberia ocupar el 100%
+        height: 100%;
+        // para centrar mejor la imagen a donde se encuentra la persona
+        transform: translateX(-4rem) scale(1.4);
+        backface-visibility: hidden; // arregla bug de chrome
+        transition: all .5s;
+    }
+
+    &__text {
+        transform: skewX(12deg);
+    }
+
+    &__caption {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -20%); // para la posicion inicial del texto
+        color: $color-white;
+        text-transform: uppercase;
+        font-size: 1.7rem;
+        text-align: center;
+        opacity: 0;
+        transition: all .5s;
+        backface-visibility: hidden; // arregla bug de chrome (again)
+    }
+
+    &:hover &__caption {
+        opacity: 1;
+        transform: translate(-50%, -50%); // para terminar de centrarlo
+    }
+
+    &:hover &__img {
+        opacity: 1;
+        transform: translateX(-4rem) scale(1);
+        // brightness: mas de 100% hace la imagen mas brillante, menos de 100% mas oscura
+        filter: blur(3px) brightness(80%);
+    }
+}
