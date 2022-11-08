@@ -1,0 +1,176 @@
+.card {
+
+    // FUNCTIONALITY
+    // da la ilusion de que el elemento tiene perspectiva, similar a 3D
+    // debe llevar valores altos (probablemente es la distancia del elemento al viewport,
+    // por lo que si lleva valores un bajos, se distorsionará mucho)
+    perspective: 150rem;
+    -moz-perspective: 150rem;
+    position: relative;
+    height: 52rem;
+
+    &__side {
+        transition: all .8s ease;
+        // como todas estan en absolute, el padre colapsa y pierde toda la altura (similar a los floats)
+        // absolute para que ambos aparezcan uno sobre el otro
+        position: absolute;
+        // por lo que se debe especificar la misma altura en el padre
+        height: 52rem;
+        top: 0;
+        left: 0;
+        width: 100%;
+        // para crear la ilusion final de la carta volteandose sin mostrar la cara opuesta
+        backface-visibility: hidden;
+        border-radius: 3px;
+        overflow: hidden; // para ocultar los bordes de la imagen del card-front haciendo overlapping y ocultando el borde redondeado.
+        box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
+
+        &--front {
+            background-color: $color-white;
+        }
+
+        &--back {
+            // debe aparecer volteado por defecto
+            transform: rotateY(180deg);
+
+            &-1 {
+                // recordar que para gradientes no se usa background-color, sino background-image
+                background-image: linear-gradient(to right bottom, $color-secondary-light, $color-secondary-dark);
+            }
+
+            &-2 {
+                // recordar que para gradientes no se usa background-color, sino background-image
+                background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
+            }
+            &-3 {
+                // recordar que para gradientes no se usa background-color, sino background-image
+                background-image: linear-gradient(to right bottom, $color-tertiary-light, $color-tertiary-dark);
+            }
+        }
+    }
+
+    // .card:hover .card__side--front {}
+    // Por defecto, el lado frontal siempre está viendo hacia el frente,
+    // por lo que hay que voltearlo cuando se hace hover
+    &:hover &__side--front {
+        // Negativo para que siga el flujo de la carta rotandose
+        transform: rotateY(-180deg);
+    }
+
+    // Por defecto, el lado trasero está volteado, por lo que hay que voltearlo
+    // para traerlo al frente cuando se hace hover
+    &:hover &__side--back {
+        transform: rotateY(0);
+    }
+
+    // FRONT-SIDE STYLING
+    &__picture {
+        background-size: cover;
+        height: 23rem;
+        // Mezcla los diferentes backgrounds que hay. A diferencia del header, el gradient no lleva un alpha (que se vea semi-transparente)
+        // estos blend-modes son similares a los de software de edición, como Photoshop. Mas poderosos que usar el rgba del header, hay varios modos.
+        background-blend-mode: screen;
+        // Por alguna razon, el clip-path rompe el overflow hidden, parece un bug de Chrome.
+        // Esto hace que los bordes no se redondeen.
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        // Por lo que hay que setear cada esquina manualmente
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+
+        &--1 {
+            // los paths relativos deben formatearse tomando en cuenta el output de css, que en ese caso
+            // la ruta solo debe subir una vez para llegar a la carpeta de img
+            background-image: linear-gradient(to right bottom, $color-secondary-light, $color-secondary-dark), url('../img/nat-5.jpg');
+        }
+        &--2 {
+            background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark), url('../img/nat-6.jpg');
+        }
+        &--3 {
+            background-image: linear-gradient(to right bottom, $color-tertiary-light, $color-tertiary-dark), url('../img/nat-7.jpg');
+        }
+    }
+
+    &__heading {
+        font-size: 2.8rem;
+        font-weight: 300;
+        text-align: right;
+        text-transform: uppercase;
+        color: $color-white;
+        position: absolute;
+        top: 12rem;
+        right: 2rem;
+        width: 75%;
+    }
+
+    // es un nuevo elemento independiente, por lo que no debe ir anidado dentro de &__heading
+    &__heading-span {
+
+        padding: 1rem 1.5rem; // para quebrar el texto en 2 lineas
+        // Basicamente trata al elemento que se quiebra como si fueran 2 separados
+        // lo que pasa es que sin este elemento, no se aplica el padding a los lados de ambos quiebres
+        // porque para el browser solo hay un elemento.
+        // Desactivar y activar en las devtools para ver a lo que me refiero.
+        -webkit-box-decoration-break: clone;
+        box-decoration-break: clone;
+
+        &--1 {
+            background-image: linear-gradient(to right bottom, rgba($color-secondary-light, .85), rgba($color-secondary-dark, .85));
+        }
+        &--2 {
+            background-image: linear-gradient(to right bottom, rgba($color-primary-light, .85), rgba($color-primary-dark, .85));
+        }
+        &--3 {
+            background-image: linear-gradient(to right bottom, rgba($color-tertiary-light, .85), rgba($color-tertiary-dark, .85));
+        }
+    }
+
+    &__details {
+
+        padding: 3rem;
+
+        ul {
+            list-style: none;
+            width: 80%;
+            margin: 0 auto; // ul es un block element, asi que se debe centrar asi
+
+            li {
+                text-align: center;
+                font-size: 1.5rem;
+                padding: 1rem;
+
+                &:not(:last-child) {
+                    border-bottom: 1px solid $color-grey-light-2;
+                }
+            }
+        }
+    }
+
+    // BACK SIDE STYLING
+    &__cta {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%; // para que el boton tenga suficiente espacio para renderizar el texto, y no se corte en 2 lineas
+        text-align: center;
+    }
+
+    &__price-box {
+        text-align: center;
+        color: $color-white;
+        margin-bottom: 8rem;
+    }
+
+    &__price-only {
+        font-size: 1.4rem;
+        text-transform: uppercase;
+    }
+
+    &__price-value {
+        // Textos grandes se ven mejor cuando son delgados en vez de dejarlos como bold
+        font-size: 6rem;
+        font-weight: 100;
+    }
+
+}
