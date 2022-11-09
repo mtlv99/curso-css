@@ -1,0 +1,158 @@
+.navigation {
+    &__checkbox {
+        display: none;
+    }
+
+    &__button {
+        background-color: $color-white;
+        // deberia ser mas grande que el background inicial para que no salga con algun borde verde producto del background
+        height: 7rem;
+        width: 7rem;
+        position: fixed; // es lo mismo que un position absolute, pero no es afectado por el scroll
+        // está en una posicion diferente debido a que se debe compensar por el tamaño mayor de este boton,
+        // comparado con el background.
+        // se distribuye 1rem de este button (porque eso le lleva al background) entre los .5rem del background
+        top: 6rem;
+        right: 6rem;
+        border-radius: 50%;
+        z-index: 2000;
+        box-shadow: 0 1rem 3rem rgba($color-black, .1);
+        text-align: center; // para alinear el icono del boton
+        cursor: pointer;
+    }
+
+    &__background {
+        height: 6rem;
+        width: 6rem;
+        border-radius: 50%;
+        position: fixed;
+        top: 6.5rem;
+        right: 6.5rem;
+        // radial-gradient irradia los colores del centro hacia afuera
+        background-image: radial-gradient($color-primary-light, $color-primary-dark);
+        z-index: 1000; // solo funciona en elementos que tienen una posicion definida (ya la tiene, en el position fixed)
+
+        transition: all .8s cubic-bezier(0.83, 0, 0.17, 1);
+    }
+    
+    &__nav {
+        height: 100vh;
+        width: 100%; // aunque no hace falta porque los blocks por defecto ocupan el 100%
+        position: fixed; // deberia ocupar toda la pantalla y no verse afectado por el scroll
+        // para que esté alineado vertical y horizontalmente, ocupando todo el viewport
+        top: 0;
+        left: 0; // desde left y no right para aprovechar que el container crecerá desde el lado derecha y dará una buena animacion de desplazamiento a los links mientras terminan de aparecer
+        z-index: 1500; // para que oculte toda la pagina excepto el button para cerrar el menu (debe ser menor a 2000, porque ese es el z-index del button)
+        // Hay un problema si solo se usa opacity, y es que los links siguen ahí y pueden ser seleccionados,
+        // por lo que nada debajo de ellos puede usarse. Para ello se puede usar visibility hidden (recordar que visibility NO se anima), o reducir el width a cero.
+        opacity: 0;
+        // visibility: hidden; // (No se anima!!!!)
+        width: 0;
+        // cubic-bezier obtenido de https://easings.net/#easeInOutQuint
+        // ejemplo visual: https://cubic-bezier.com
+        transition: all .8s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    }
+
+    &__list {
+        @include centerHorizontalVertical;
+        list-style: none;
+        text-align: center;
+        width: 100%;
+    }
+
+    &__item {
+        margin: 1rem;
+    }
+
+    &__link {
+
+        &:link,
+        &:visited {
+            display: inline-block; // recordar que los links tambien son inline por defecto, por lo que debe cambiar para usar margins y transform.
+            font-size: 3rem;
+            font-weight: 300;
+            padding: 1rem 2rem;
+            color: $color-white;
+            text-decoration: none;
+            text-transform: uppercase;
+            background-image: linear-gradient(120deg, transparent 0%, transparent 50%, $color-white 50%);
+            // la animacion se basa en mover el background-position (si, background position) para hacer que el gradiente se desplace
+            background-size: 220%;
+            transition: all .4s;
+
+            span {
+                margin-right: 1.5rem;
+                display: inline-block;
+            }
+        }
+
+        &:hover,
+        &:active {
+            // mueve el fondo para que la parte blanca del gradiente cubra todo el boton
+            background-position: 100%;
+            color: $color-primary;
+            transform: translateX(1rem);
+        }
+
+    }
+
+    // FUNCTIONALITY
+    &__checkbox:checked ~ &__background {
+        transform: scale(80);
+    }
+
+    &__checkbox:checked ~ &__nav {
+        opacity: 1;
+        width: 100%;
+    }
+
+    // ICON 
+    &__icon {
+        position: relative; // para que sea relativo a los elementos del icono
+        margin-top: 3.5rem; // para alinear el icono verticalmente
+
+        &,
+        &::before,
+        &::after {
+            width: 3rem;
+            height: 2px; // siempre debe ser 2 px, sin importar el font-size
+            background-color: $color-grey-dark-3;
+            display: inline-block;
+        }
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            transition: all .2s;
+        }
+
+        &::before { top: -.8rem; }
+        // transform-origin determina el pivote desde donde se rotará o manipulará un objeto, no se usa acá pero puede ser util para otros escenarios.
+        // &::before { top: -.8rem; transform-origin: right; }
+        &::after { top: .8rem; }
+    }
+
+    // para que la linea de arriba y abajo tengan un pequeño salto cuando se hace hover
+    &__button:hover &__icon::before {
+        top: -1rem;
+    }
+    &__button:hover &__icon::after {
+        top: 1rem;
+    }
+
+    // cuando el checkbox está marcado, selecciona el icono del button
+    // la linea del centro del icono debe ocultarse cuando se hace click al checkbox
+    &__checkbox:checked + &__button &__icon {
+        background-color: transparent;
+    }
+    &__checkbox:checked + &__button &__icon::before {
+        top: 0; // debe volver a su posicion original (misma del elemento "real")
+        transform: rotate(135deg); // 180deg - 45 deg
+    }
+    &__checkbox:checked + &__button &__icon::after {
+        top: 0;
+        transform: rotate(-135deg);
+    }
+}

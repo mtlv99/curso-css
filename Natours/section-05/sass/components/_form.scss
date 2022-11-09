@@ -106,7 +106,7 @@
         padding-left: 5rem; // para darle espacio al radio-buttom custom
     }
 
-    // tambien se puede usar +, pero se usa ~ para demostrar que tambien funciona.
+    // tambien se puede usar + (direct sibling), pero se usa ~ (adjacent sibling) para demostrar que tambien funciona.
     // seleccciona el radio input que esté checked y luego busca el radio-label que contiene el span con el radio-button custom
     &__radio-input:checked ~ &__radio-label &__radio-button::after {
         opacity: 1;
