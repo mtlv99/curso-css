@@ -13,3 +13,55 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+// MEDIA QUERY MANAGER
+/*
+Desktop fist approach:
+0 - 600px:      Phone
+600 - 900px:    Tablet portrait
+600 - 900px:    Tablet landscape
+[1200 - 1800px] es donde aplicar los estilos normales
+1800px+:        Big desktop
+
+max-width: el bloque de styles se aplicará hasta que sobrepase la cantidad definida (max-width de 600px -> 601px ya no cuenta)
+min-width: el bloque de styles se aplicará mientras el valor lo disminuya de la cantidad definida (min-width de 500px -> 499px no aplica)
+
+max-width -> desktop first approach
+min-width -> mobile first approach
+*/
+
+// mejora pero no es lo mas optimo
+// @mixin respond-phone {
+//     // @content permite pasar un bloque de codigo al mixin
+//     @media (max-width: 600px) { @content };
+// }
+
+/*
+$breakpoint argument choices
+- phone
+- tab-port (tablet portrait)
+- tab-land (tablet landscape)
+- big-desktop
+*/
+@mixin respond($breakpoint) {
+    // los em's y rem's tienen cierta particularidad al ser usados en los media queries
+    // ambos están usando el font-size por defecto del browser (1em = 16px), y en teoria funcionarian igual,
+    // pero se han hecho varios experimentos donde el em unit ha funcionado mejor que el rem para los media queries
+    @if $breakpoint == phone {
+        // 600px/16 = 37.5em
+        @media (max-width: 37.5em) { @content }; // 600px
+    }
+    @if $breakpoint == tab-port {
+        // 900px/16 = 56.25em
+        @media (max-width: 56.25em) { @content }; // 900px
+    }
+    @if $breakpoint == tab-land {
+        // 1200px/16 = 75em
+        @media (max-width: 75em) { @content }; // 1200px   
+    }
+    @if $breakpoint == big-desktop {
+        // 1800px/16 = 112.5em
+        // Aca es min para que estos se apliquen solo a pantallas mayores a 1800px
+        @media (min-width: 112.5em) { @content }; // 1800px
+    }
+}

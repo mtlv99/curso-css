@@ -1,3 +1,25 @@
+@charset "UTF-8";
+/*
+Desktop fist approach:
+0 - 600px:      Phone
+600 - 900px:    Tablet portrait
+600 - 900px:    Tablet landscape
+[1200 - 1800px] es donde aplicar los estilos normales
+1800px+:        Big desktop
+
+max-width: el bloque de styles se aplicará hasta que sobrepase la cantidad definida (max-width de 600px -> 601px ya no cuenta)
+min-width: el bloque de styles se aplicará mientras el valor lo disminuya de la cantidad definida (min-width de 500px -> 499px no aplica)
+
+max-width -> desktop first approach
+min-width -> mobile first approach
+*/
+/*
+$breakpoint argument choices
+- phone
+- tab-port (tablet portrait)
+- tab-land (tablet landscape)
+- big-desktop
+*/
 @keyframes moveInLeft {
   0% {
     opacity: 0;
@@ -44,6 +66,21 @@
 
 html {
   font-size: 62.5%;
+}
+@media (max-width: 75em) {
+  html {
+    font-size: 56.25%;
+  }
+}
+@media (max-width: 56.25em) {
+  html {
+    font-size: 50%;
+  }
+}
+@media (min-width: 112.5em) {
+  html {
+    font-size: 75%;
+  }
 }
 
 body {
