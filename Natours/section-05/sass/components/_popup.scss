@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .popup {
     height: 100vh;
     width: 100%; // css redundante pero no es un problema acá (block agarra el 100% del width por defecto)
@@ -34,7 +36,8 @@
     }
 
     &__left {
-        width: (1 / 3) * 100%;
+        // la division está quedando deprecated, se usa la clase math (de sass)
+        width: math.div(1, 3) * 100%;
         // table-cell es mejor que usar floats para poner centrar las columnas de una forma mas facil
         // hace que ambas tengan la misma altura, incluso si el contenido no cubre todo, como es el caso de la
         // columna derecha, es solo un texto con un botones pero el vertical-align se asegura que siempre esté
@@ -43,7 +46,8 @@
     }
     
     &__right {
-        width: (2 / 3) * 100%;
+        // la division está quedando deprecated, se usa la clase math (de sass)
+        width: math.div(2, 3) * 100%;
         display: table-cell;
         vertical-align: middle;
         padding: 3rem 5rem;
