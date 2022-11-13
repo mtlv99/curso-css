@@ -143,4 +143,55 @@
         font-weight: 100;
     }
 
+
+    // Para ese media query se copió todo el contenido actual y se fue ajustando/eliminando el que se mantenía igual
+    // (porque no tiene sentido tener 2 styles que van a aplicar la misma regla)
+    @include respond(tab-port) {
+        // FUNCTIONALITY
+        // en este caso ya no necesitamos que la altura del card frontal y trasero sean las mismas, por lo que se setea a auto
+        height: auto;
+        border-radius: 3px; // se pasa el border radius afuera
+        background-color: $color-white; // se aplica fondo a ambos cards
+        box-shadow: 0 1.5rem 4rem rgba($color-black, .15); // se pasa el box-shadow afuera
+
+        &__side {
+            position: relative; // ahora se tendra los 2 lados ocupando el mismo espacio
+            height: auto;
+            box-shadow: none;
+
+            &--back {
+                transform: rotateY(0); // se debe devolver al estado inicial
+                clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+            }
+        }
+
+        &:hover &__side--front {
+            transform: rotateY(0);
+        }
+
+        &__details {
+            padding: 1rem 3rem;
+        }
+
+        // BACK SIDE STYLING
+        &__cta {
+            position: relative;
+            top: 0;
+            left: 0;
+            transform: translate(0);
+            width: 100%;
+            padding: 7rem 4rem 4rem 4rem;
+        }
+
+        &__price-box {
+            margin-bottom: 3rem;
+        }
+
+
+        &__price-value {
+            font-size: 4rem;
+        }
+
+    }
+
 }

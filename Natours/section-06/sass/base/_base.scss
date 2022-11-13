@@ -16,14 +16,21 @@ html {
 
     // los media queries siempre deben ir los grandes primero en el orden del css, y luego los mas pequeños,
     // para evitar conflictos de styles (se terminan aplicando varios styles que entran dentro de los escenarios validos,
-    // y por eso los mas grandes van al principio.
+    // y por eso los mas grandes van al principio, para que el ultimo del archivo sea el que se vaya a aplicar).
+    // Tener mucho cuidado con esto! Por ejemplo si el tab-port estuviera primero y el vw es de 700px, se estaria 
+    // aplicando el font-size de 56.25% por estar de ultimo (ya que en ambos media queries 700 aplica),
+    // pero deberia ser 50%.
 
-    @include respond(tab-land) { // width < 600?
+    // En un mobile first approach, el orden deberia ser al reves.
+
+    @include respond(tab-land) { // width menor a 1200?
         font-size: 56.25%; // 1rem = 9px, 9/16 = 56.25%
     }
-    @include respond(tab-port) { //width < 900?
+    @include respond(tab-port) { //width menor a 900?
         font-size: 50%; // 1rem = 8px, 8/16 = 50%
     }
+
+    // aparte
     @include respond(big-desktop) {
         font-size: 75%; // 1rem = 12px, 12/16 = 75%
     }
@@ -31,4 +38,10 @@ html {
 
 body {
     box-sizing: border-box;
+    padding: 3rem; // esto debería estar acá, no en typography
+
+    // 
+    @include respond(tab-port) {
+        padding: 0;
+    }
 }

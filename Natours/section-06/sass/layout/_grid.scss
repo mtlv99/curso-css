@@ -6,6 +6,20 @@
     
     &:not(:last-child) {
         margin-bottom: $gutter-vertical;
+
+       @include respond(tab-port) {
+           margin-bottom: $gutter-vertical-small;
+       }
+    }
+
+    // como el row tiene un max-width y no un width definido, en viewports menores al valor
+    // definido en la variable $grid-width (114rem), simplemente usará el 100%.
+    // especial para tablets pero también se ve bien en mobile
+    @include respond(tab-port) {
+        max-width: 50rem;
+        // añade un padding que incluso cuando el viewport sea menor al max-width especificado acá,
+        // los elementos esten pegados al borde del row.
+        padding: 0 3rem;
     }
     
     [class^="col-"] {
@@ -13,6 +27,19 @@
 
         &:not(:last-child) {
             margin-right: $gutter-horizontal;
+
+            // Quita el margin a la derecha entre columnas (gutter), debido a que
+            // los elementos ya no están lado a lado. El gutter se translada a ser vertical
+            @include respond(tab-port) {
+                margin-right: 0;
+                margin-bottom: $gutter-vertical-small;
+            }
+        }
+
+        // Para mobile usualmente lo que se hace es convertir todas las columnas en rows
+        @include respond(tab-port) {
+            // El important para asegurarse de que se haga override a los estilos definidos abajo
+            width: 100% !important;
         }
     }
 

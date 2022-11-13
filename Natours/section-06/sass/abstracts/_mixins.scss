@@ -36,6 +36,12 @@ min-width -> mobile first approach
 //     @media (max-width: 600px) { @content };
 // }
 
+// ORDEN PARA HACER SITIOS RESPONSIVE:
+// Base + typography > general layout + grid > page layout > components
+// Abrir el modo responsive las devtools y en el menu de hamburguesa activar "Show media queries"
+// los azules son los max-width
+// los naranjas los los min-width
+
 /*
 $breakpoint argument choices
 - phone
