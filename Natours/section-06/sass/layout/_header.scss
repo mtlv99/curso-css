@@ -1,12 +1,38 @@
 
 .header {
     height: 95vh;
-    background-image: linear-gradient(to left bottom, rgba($color-primary-light, 0.8), rgba($color-primary-dark, 0.8)), url(../img/hero.jpg);
+    // la imagen por defecto deberia ser la mas pequeña a menos que el pixel density amerite usar una imagen mas grande
+    background-image: linear-gradient(to left bottom, rgba($color-primary-light, 0.8), rgba($color-primary-dark, 0.8)), url(../img/hero-small.jpg);
     background-size: cover;
     background-position: top;
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
     clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
     position: relative;
+
+    // Responsive images:
+    // Aplica a imagenes cuyo source está dentro del HTML (a diferencia de los background-images, por ejemplo)
+    // Tipos:
+    // Resolution switching y densitiy switching:
+    // cuando se necesita mostrar la misma imagen pero con diferente resolución
+    // Art direction:
+    // cuando se necesita mostrar una imagen completamente diferente
+
+    // Density switching:
+    // Se aplica en las imagenes del HTML por medio del atributo srcset.
+    // Para comprobar que funciona, hacer hover en las devtools del atributo srcset, y hay un label que dice: "Current source"
+
+
+    // 192dpi: standard de Apple retina
+    // la segunda condición es para que no se aplique en dispositivos con un high dpi (porque no tiene sentido mostrar una imagen
+    // de 2k en un dispositivo que tiene un width menor a 600px)
+    // Por ejemplo, en un dispositivo con 2x y width de 600px: 600px * 2 sería 1200px, por lo que se estarian desperdiciando los pixels de la imagen grande (2000px)
+    // También es necesario para cuando el viewport es muy ancho (2000px >)
+    // Recordar que los media queries van en em
+    // (600px de min-width / 16) = 37.5 em
+    // (2000px de min-width / 16) = 125 em
+    @media (min-resolution: 192dpi) and (min-width: 37.5em), (min-width: 125em) {
+        background-image: linear-gradient(to left bottom, rgba($color-primary-light, 0.8), rgba($color-primary-dark, 0.8)), url(../img/hero.jpg);
+    }
 
     @include respond(phone) {
         -webkit-clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);

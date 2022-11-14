@@ -80,9 +80,41 @@
                     <div class="col-1-of-2">
                         <!-- emmet: .composition>(img.composition__photo.composition__photo--p1)*3 -->
                         <div class="composition">
-                            <img src="img/nat-1-large.jpg" alt="Photo 1" class="composition__photo composition__photo--p1">
+
+                            <!-- 
+                            Resolution switching and density switching
+                            El atributo src sería en caso de que srcset no esté soportado por el browser
+                            En este caso, se informa al browser del tamaño de la imagen sin tener que descargarla primero, usando el width descriptor
+                            El atributo sizes se usa para indicarle al browser el tamaño de las imagenes en los diferentes viewport widths
+                            Ambos atributos son requeridos para que browser tenga la info completa, tanto el width descriptor como el sizes
+                            * max-width: 900px -> 171/900 -> 20% del viewport width
+                            * max-width: 600px -> 171/600 -> 28.5% ~ 30% (redondeado) del viewport width
+                            300px default size (sin breakpoints).
+                            para los media queries: se convirtieron a em después
+                            * max-width: 900px -> 900px/16 = 56.25em
+                            * max-width: 600px -> 600px/16 = 37.5em
+                            -->
+                            <img srcset="img/nat-1.jpg 300w, img/nat-1-large.jpg 1000w"
+                                sizes="(max-width: 56.25em) 20vw, (max-width: 37.5em) 30vw, 300px"
+                                alt="Photo 1"
+                                class="composition__photo composition__photo--p1"
+                                src="img/nat-1-large.jpg">
+
+                            <img srcset="img/nat-2.jpg 300w, img/nat-2-large.jpg 1000w"
+                                sizes="(max-width: 56.25em) 20vw, (max-width: 37.5em) 30vw, 300px"
+                                alt="Photo 1"
+                                class="composition__photo composition__photo--p2"
+                                src="img/nat-2-large.jpg">
+
+                            <img srcset="img/nat-3.jpg 300w, img/nat-3-large.jpg 1000w"
+                                sizes="(max-width: 56.25em) 20vw, (max-width: 37.5em) 30vw, 300px"
+                                alt="Photo 1"
+                                class="composition__photo composition__photo--p3"
+                                src="img/nat-3-large.jpg">
+
+                            <!-- <img src="img/nat-1-large.jpg" alt="Photo 1" class="composition__photo composition__photo--p1">
                             <img src="img/nat-2-large.jpg" alt="Photo 2" class="composition__photo composition__photo--p2">
-                            <img src="img/nat-3-large.jpg" alt="Photo 3" class="composition__photo composition__photo--p3">
+                            <img src="img/nat-3-large.jpg" alt="Photo 3" class="composition__photo composition__photo--p3"> -->
                         </div>
                     </div>
                 </div>
@@ -346,7 +378,19 @@
 
         <footer class="footer">
             <div class="footer__logo-box">
-                <img src="img/logo-green-2x.png" alt="Full logo" class="footer__logo">
+
+                <!-- Moví la clase al elemento picture -->
+                <picture class="footer__logo">
+                    <!-- Breakpoint de celular -->
+                    <!-- Art direction y density switching -->
+                    <source srcset="img/logo-green-small-1x.png 1x, img/logo-green-small-2x.png 2x"
+                    media="(max-width: 37.5rem)">
+                    <!-- Este elemento funcionaría como fallback si no logra aplicar ningun source (no aplica ningun media query) -->
+                    <!-- Density switching -->
+                    <!-- El atributo src sería en caso de que srcset no esté soportado por el browser -->
+                    <img srcset="img/logo-green-1x.png 1x, img/logo-green-2x.png 2x" alt="Full logo" src="img/logo-green-2x.png">
+                </picture>
+
             </div>
 
             <div class="row">
