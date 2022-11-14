@@ -1,6 +1,7 @@
 
 .header {
-    height: 95vh;
+    // Reduje el valor por defecto para que el usuario tenga la ilusión de que la pagina continue, en caso de que clip-path no funcione en el browser.
+    height: 85vh;
     // la imagen por defecto deberia ser la mas pequeña a menos que el pixel density amerite usar una imagen mas grande
     background-image: linear-gradient(to left bottom, rgba($color-primary-light, 0.8), rgba($color-primary-dark, 0.8)), url(../img/hero-small.jpg);
     background-size: cover;
@@ -8,6 +9,14 @@
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
     clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
     position: relative;
+
+    // en este caso los valores del feature query no importan mucho, es solo para probar que
+    // la propiedad funciona o no
+    @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+        height: 95vh; // si clip-path si funciona, entonces se aplica el valor original antes de hacer la pagina responsive.
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+    }
 
     // Responsive images:
     // Aplica a imagenes cuyo source está dentro del HTML (a diferencia de los background-images, por ejemplo)
@@ -30,7 +39,10 @@
     // Recordar que los media queries van en em
     // (600px de min-width / 16) = 37.5 em
     // (2000px de min-width / 16) = 125 em
-    @media (min-resolution: 192dpi) and (min-width: 37.5em), (min-width: 125em) {
+    @media (min-resolution: 192dpi) and (min-width: 37.5em),
+           // min-resolution no está soportado por safari, en cambio se usa esta
+           (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em),
+           (min-width: 125em) {
         background-image: linear-gradient(to left bottom, rgba($color-primary-light, 0.8), rgba($color-primary-dark, 0.8)), url(../img/hero.jpg);
     }
 

@@ -13,6 +13,15 @@
     transition: all .3s;
 
 
+    // GRACEFUL DEGRADATION using @supports (feature query)
+    @supports (-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px)) {
+        -webkit-backdrop-filter: blur(10px);
+        // Se pueden aplicar muchos filtros, está sepia, brightness, invertir colores, etc...
+        backdrop-filter: blur(10px);
+        background-color: rgba($color-black, .6);
+    }
+
+
        
     &__content {
         @include centerHorizontalVertical;

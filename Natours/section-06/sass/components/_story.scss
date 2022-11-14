@@ -22,12 +22,21 @@
         width: 15rem;
         height: 15rem;
         float: left;
-        -webkit-shape-outside: circle(50% at 50% 50%);
-        shape-outside: circle(50% at 50% 50%);
-        -webkit-clip-path: circle(50% at 50% 50%);
-        clip-path: circle(50% at 50% 50%);
         transform: translateX(-3rem) skewX(12deg);
         position: relative;
+        overflow: hidden; // para que se oculte el resto de la imagen en caso de que el clip-path no funcione
+        border-radius: 50%; // se aplica cuando clip-path no está disponible
+
+        // Hace la imagen circular en caso de que clip-path esté soportado,
+        // y también aplica la sangria rendondeada alrededor del texto
+        @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+            -webkit-clip-path: circle(50% at 50% 50%);
+            clip-path: circle(50% at 50% 50%);
+            -webkit-shape-outside: circle(50% at 50% 50%);
+            shape-outside: circle(50% at 50% 50%);
+            border-radius: none; // si clip-path funciona, entonces quita el border-radius
+        }
+    
 
         @include respond(phone) {
             transform: translateX(-3rem) skewX(0);
