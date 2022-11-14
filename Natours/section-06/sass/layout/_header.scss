@@ -39,10 +39,10 @@
     // Recordar que los media queries van en em
     // (600px de min-width / 16) = 37.5 em
     // (2000px de min-width / 16) = 125 em
-    @media (min-resolution: 192dpi) and (min-width: 37.5em),
+    @media only screen and (min-resolution: 192dpi) and (min-width: 37.5em),
            // min-resolution no está soportado por safari, en cambio se usa esta
-           (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em),
-           (min-width: 125em) {
+           only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em),
+           only screen and (min-width: 125em) {
         background-image: linear-gradient(to left bottom, rgba($color-primary-light, 0.8), rgba($color-primary-dark, 0.8)), url(../img/hero.jpg);
     }
 

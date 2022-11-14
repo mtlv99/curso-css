@@ -146,7 +146,12 @@
 
     // Para ese media query se copió todo el contenido actual y se fue ajustando/eliminando el que se mantenía igual
     // (porque no tiene sentido tener 2 styles que van a aplicar la misma regla)
-    @include respond(tab-port) {
+    // @include respond(tab-port) { // original sin soporte a dispositivos sin hover
+    @media only screen and (max-width: 37.5em),
+    // se aplicará también a dispositivos en los cuales no se pueda hacer hover, como smartphones,
+    // aunque tengan el width suficiente para mostrar las cards que se voltean.
+    // (agregar un device type en las devtools responsivas para probar)
+           only screen and (hover: none) { // opuesto de (hover: none) -> (hover: hover)
         // FUNCTIONALITY
         // en este caso ya no necesitamos que la altura del card frontal y trasero sean las mismas, por lo que se setea a auto
         height: auto;

@@ -55,19 +55,21 @@ $breakpoint argument choices
     // pero se han hecho varios experimentos donde el em unit ha funcionado mejor que el rem para los media queries
     @if $breakpoint == phone {
         // 600px/16 = 37.5em
-        @media (max-width: 37.5em) { @content }; // 600px
+        // es buena practica colocar el "only" que se aplique solo a screens
+        // y que a la hora de imprimir la página no se apliquen, por ejemplo.
+        @media only screen and (max-width: 37.5em) { @content }; // 600px
     }
     @if $breakpoint == tab-port {
         // 900px/16 = 56.25em
-        @media (max-width: 56.25em) { @content }; // 900px
+        @media only screen and (max-width: 56.25em) { @content }; // 900px
     }
     @if $breakpoint == tab-land {
         // 1200px/16 = 75em
-        @media (max-width: 75em) { @content }; // 1200px   
+        @media only screen and (max-width: 75em) { @content }; // 1200px   
     }
     @if $breakpoint == big-desktop {
         // 1800px/16 = 112.5em
         // Aca es min para que estos se apliquen solo a pantallas mayores a 1800px
-        @media (min-width: 112.5em) { @content }; // 1800px
+        @media only screen and (min-width: 112.5em) { @content }; // 1800px
     }
 }
