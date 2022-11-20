@@ -1,0 +1,38 @@
+.container {
+    // Si es menor a 120rem, ocupará el 100% del width.
+    max-width: 120rem;
+    margin: 8rem auto;
+    background-color: var(--color-grey-light-1);
+    box-shadow: var(--shadow-dark);
+}
+
+.header {
+    font-size: 1.4rem; // para que se herede en todo el componente
+    height: 7rem;
+    background-color: var(--color-white);
+    border-bottom: var(--color-grey-light-2);
+
+    display: flex;
+    // space between divide el contenido disponible entre los elementos
+    justify-content: space-between;
+    // alinea los items en el cross axis
+    align-items: center;
+}
+
+.content {
+    display: flex;
+}
+
+.sidebar {
+    background-color: var(--color-grey-dark-1);
+    // valores: flex-growth, flex-shrink, flex-basis
+    // flex basis como es un porcentaje, se ajustará al width y no es un valor fijo
+    flex: 0 0 18%;
+}
+
+.hotel-view {
+    background-color: var(--color-white);
+
+    // flex 1 para que ocupe el resto del espacio disponible (82%).
+    flex: 1;
+}

@@ -1,0 +1,148 @@
+// Estos no son realmente componentes porque algunos no pueden ser reutilizados en otros proyectos,
+// pero el enfoque de esta sección es otro (flexbox)
+
+//////////////////////////////////////
+// LOGO 
+//////////////////////////////////////
+.logo {
+    height: 3.25rem;
+    margin-left: 2rem;
+}
+
+//////////////////////////////////////
+// SEARCH 
+//////////////////////////////////////
+.search {
+    // background-color: orange;
+    flex: 0 0 40%;
+
+    // Un flex item también puede ser flex container al mismo tiempo 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__input {
+        font-family: inherit;
+        font-size: inherit;
+        background-color: var(--color-grey-light-2);
+        border: none;
+        color: inherit;
+        padding: .7rem 2rem;
+        border-radius: 100px;
+        width: 90%; // el 100% aun no porque al hacer click se va a expander
+        // para que quepa el icono del search bar cuando se hace click, y también se situe encima del navbar
+        margin-right: -3.25rem;
+        transition: all .2s;
+
+        &:focus {
+            outline: none;
+            width: 100%;
+            background-color: var(--color-grey-light-3);
+        }
+
+        &::-webkit-input-placeholder {
+            font-weight: 100;
+            // font-size no es necesario porque era del inherit del input
+            color: var(--color-grey-light-4);
+        }
+    }
+
+    &__input:focus + &__button {
+        background-color: var(--color-grey-light-3);        
+    }
+
+    &__button {
+        border: none;
+        // lleva el mismo color del input
+        background-color: var(--color-grey-light-2);
+
+        &:focus {
+            outline: none;
+        }
+
+        &:active {
+            transform: translateY(2px);
+        }
+
+    }
+
+    &__icon {
+        height: 2rem;
+        width: 2rem;
+        fill: var(--color-grey-dark-3);
+    }
+}
+
+//////////////////////////////////////
+// USER NAVIGATION
+//////////////////////////////////////
+.user-nav {
+    // background-color: greenyellow;
+    // Como esto es un children del navbar, se quiere que ocupe todo el espacio disponible,
+    // por que se usa align-self acá (que en este caso se rellenan los margenes de arriba y abajo)
+    // Hace override del valor que se habia seteado en el resto de children (center)
+    align-self: stretch;
+
+    display: flex;
+    // alinea los items verticalmente (cuando el direction está en row, valor por defecto)
+    align-items: center;
+
+    // Se aplica a todos los children directos, en vez de hacer un selector para user-nav__icon-box y user-nav__user
+    & > * {
+        padding: 0 2rem;
+        cursor: pointer;
+        height: 100%;
+
+        // tercer nivel de flexbox container (el navbar es el 1ro, el user-nav el 2do, y este el 3ro)
+        // se pone acá para no repetir en &__icon-box y &__user
+        display: flex;
+        align-items: center;
+    }
+
+    & > *:hover {
+        background-color: var(--color-grey-light-2);
+    }    
+
+
+    &__icon-box {
+        // relativo para el bubble de las notificaciones.
+        // Parece que en &__icon no funciona bien por ser un svg...?
+        position: relative;
+    }
+
+    &__icon {
+        height: 2.25rem;
+        width: 2.25rem;
+        fill: var(--color-grey-dark-2);
+    }
+    &__notification {
+        font-size: .8rem;
+        height: 1.75rem;
+        width: 1.75rem;
+        border-radius: 50%;
+        background-color: var(--color-primary);
+        color: var(--color-white);
+        position: absolute;
+        top: 1.5rem;
+        right: 1.1rem;
+
+        // flexbox también se puede usar para centrar texto (el contador de las notificaciones :O)
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__user {
+
+    }
+
+    &__user-photo {
+        height: 3.75rem;
+        border-radius: 50%;
+        margin-right: 1rem;
+    }
+
+    &__user-name {
+
+    }
+}

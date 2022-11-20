@@ -1,7 +1,7 @@
 {
   "name": "curso-css",
   "version": "0.0.0",
-  "description": "Curso CSS - Natours",
+  "description": "Curso CSS - Trillo",
   "main": "index.js",
   "scripts": {
     "watch:sass": "sass sass/main.scss ./css/style.css -w",
