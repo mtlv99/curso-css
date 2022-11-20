@@ -132,9 +132,9 @@
         align-items: center;
     }
 
-    &__user {
+    // &__user {
 
-    }
+    // }
 
     &__user-photo {
         height: 3.75rem;
@@ -142,7 +142,94 @@
         margin-right: 1rem;
     }
 
-    &__user-name {
+    // &__user-name {
 
+    // }
+}
+
+//////////////////////////////////////
+// SIDE NAVIGATION
+//////////////////////////////////////
+.side-nav {
+    font-size: 1.4rem;
+    list-style: none;
+    margin-top: 3.5rem;
+
+    &__item {
+        // relativo para los pseudoelementos del &__item
+        position: relative;
+        
+        &:not(:last-child) {
+            margin-bottom: .5rem;
+        }
     }
+
+    &__item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 3px; // inicialmente son 3px nada mas, simulando una linea vertical
+        background-color: var(--color-primary);
+        transform: scaleY(0);
+        // Se pueden definir transforms para propiedades diferentes, separadas por una coma
+        // en el width se tiene un delay de .2s, que es el tiempo que le toma al transform terminar.
+        // Apenas termina, sigue con la animación del width
+        transition: transform .2s, 
+                    width .4s cubic-bezier(1, 0, 0, 1) .2s,
+                    background-color .1s;
+    }
+
+    &__item:hover::before,
+    &__item--active::before { // para el elemento activo
+        transform: scaleY(1);
+        // luego, hace que ocupe todo el espacio disponible
+        width: 100%;
+    }
+
+    &__item:active::before {
+        background-color: var(--color-primary-light);
+    }
+
+    &__link:link,
+    &__link:visited {
+        color: var(--color-grey-light-1);
+        text-decoration: none;
+        text-transform: uppercase;
+        display: block;
+        padding: 1.5rem 3rem;
+        position: relative; // el z-index solo funciona bien cuando se especifica un position
+        z-index: 10; // para que salga encima del pseudoelemento del link al hacer hover
+
+        // ppara alinear texto e icono verticalmente
+        display: flex;
+        align-items: center;
+    }
+
+    // Se puede usar el current color también durante los hover por ejemplo para cambiar tanto el icon como el texto
+    // en un mismo selector, muy util!
+    // &__link:hover {
+    //     color: orangered;
+    // }
+
+    &__icon {
+        // color: orange; // para desmostrar lo del currentColor, descomentar para el ejemplo
+        width: 1.75rem;
+        height: 1.75rem;
+        margin-right: 2rem;
+        // currentColor equivale al color del elemento actual o del padre
+        // en este caso lee el padre, pero si se define un color en el mismo elemento, cambia
+        fill: currentColor;
+    }
+}
+
+//////////////////////////////////////
+// LEGAL TEXT
+//////////////////////////////////////
+.legal {
+    font-size: 1.2rem;
+    color: var(--color-grey-light-4);
+    text-align: center;
+    padding: 2.5rem;
 }

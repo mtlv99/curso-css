@@ -28,6 +28,12 @@
     // valores: flex-growth, flex-shrink, flex-basis
     // flex basis como es un porcentaje, se ajustará al width y no es un valor fijo
     flex: 0 0 18%;
+
+    // column para poder usar justify content verticalmente
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
 }
 
 .hotel-view {
@@ -35,4 +41,8 @@
 
     // flex 1 para que ocupe el resto del espacio disponible (82%).
     flex: 1;
+
+    // Para testing mientras se programa el sidebar, quitar después
+    background-color: orange;
+    height: 80rem;
 }
