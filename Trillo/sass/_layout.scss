@@ -10,7 +10,7 @@
     font-size: 1.4rem; // para que se herede en todo el componente
     height: 7rem;
     background-color: var(--color-white);
-    border-bottom: 1px solid var(--color-grey-light-2);
+    border-bottom: var(--line);
 
     display: flex;
     // space between divide el contenido disponible entre los elementos
@@ -45,4 +45,29 @@
     // Para testing mientras se programa el sidebar, quitar después
     // background-color: orange;
     // height: 80rem;
+}
+
+.detail {
+    display: flex;
+    // para que la distancia del padding y el margin-right entre columnas sea la misma
+    padding: 4.5rem;
+    background-color: var(--color-grey-light-1);
+    border-bottom: var(--line);
+}
+
+.description {
+    font-size: 1.4rem;
+    background-color: var(--color-white);
+    box-shadow: var(--shadow-light);
+    padding: 3rem;
+
+    // recordar usar porcentaje, nunca un valor fijo, para hacerlo más responsive.
+    flex: 0 0 60%;
+    // espacio entre las columnas
+    margin-right: 4.5rem;
+}
+
+.user-reviews {
+    // para que ocupe el espacio restante
+    flex: 1;
 }

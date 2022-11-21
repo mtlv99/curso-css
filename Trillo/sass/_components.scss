@@ -254,7 +254,7 @@
 .overview {
     display: flex;
     align-items: center;
-    border-bottom: 1px solid var(--color-grey-light-2);
+    border-bottom: var(--line);
 
     &__heading {
         font-size: 2.25rem;
@@ -368,5 +368,103 @@
     100% {
         transform: scale(1);
         box-shadow: none;
+    }
+}
+
+//////////////////////////////////////
+// PARAGRAPH
+//////////////////////////////////////
+
+// last-of-type se aplica al ultimo elemento que
+// es del type del paragraph (acá es lo opuesto, ya que está con NOT).
+// Comparar con :last-child en las devtools para ver la diferencia.
+.paragraph:not(:last-of-type) {
+    margin-bottom: 2rem;
+}
+
+
+//////////////////////////////////////
+// LIST
+//////////////////////////////////////
+.list {
+    list-style: none;
+    margin: 3rem 0;
+    padding: 3rem 0;
+    border-top: var(--line);
+    border-bottom: var(--line);
+
+    display: flex;
+    // Para que los elementos se posicionen bien cuando el espacio no es el suficiente, mueve
+    // los elementos hacia abajo en una linea nueva.
+    // Desactivar/activar con devtools para ver la diferencia.
+    flex-wrap: wrap;
+
+    &__item {
+        // 50% para que ocupen la mitad del espacio y hayan 2 columnas, lado a lado
+        flex: 0 0 50%;
+        margin-bottom: .7rem;
+    }
+
+    // es una buena practica usar pseudoelementos para mantener el html limpio
+    &__item::before {
+        content: "";
+        display: inline-block;
+        height: 1rem;
+        width: 1rem;
+        margin-right: .7rem;
+
+        // Browsers viejos
+        // URL relativa al output final del css
+        // background-image: url(../img/chevron-thin-right.svg);
+        // background-size: cover;
+
+        // Browsers modernos -> masks!
+        // mask es similar al clip-path, recorta el elemento en la forma que se especifica en el svg.
+        background-color: var(--color-primary);
+        -webkit-mask-image: url(../img/chevron-thin-right.svg);
+        // para que el mask cubra todo el elemento, mismo comportamiento que el background-size: cover;
+        // (debido a que el icon es más grande que 1rem, definido en height/width)
+        -webkit-mask-size: cover;
+        mask-image: url(../img/chevron-thin-right.svg);
+        mask-size: cover;
+    }
+}
+
+//////////////////////////////////////
+// RECOMMEND
+//////////////////////////////////////
+.recommend {
+    font-size: 1.3rem;
+    color: var(--color-grey-dark-3);
+
+    display: flex;
+    align-items: center;
+
+    &__count {
+        // para que el resto del espacio se cubra, y empuje las imagenes hacia el final del contenedor
+        margin-right: auto;
+    }
+
+    &__friends {
+
+    }
+
+    &__photo {
+        height: 4rem;
+        width: 4rem;
+        border-radius: 50%;
+        border: 3px solid var(--color-white);
+
+        // en este si es necesario content-box, para que el border se agregue adicional a la imagen,
+        // y no la encoja (restandole del tamaño a la imagen).
+        // o se puede eliminar este box-sizing y agregar los 3px del border al height, pero creo que
+        // queda más claro el objetivo del styling con esta property aquí.
+        box-sizing: content-box;
+
+        // para "jalar" todas las imagenes menos la ultima hacia la izquierda,
+        // creando un efecto de overlapping
+        &:not(:last-child) {
+            margin-right: -1.5rem;
+        }
     }
 }
