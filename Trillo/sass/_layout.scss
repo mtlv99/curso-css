@@ -10,7 +10,7 @@
     font-size: 1.4rem; // para que se herede en todo el componente
     height: 7rem;
     background-color: var(--color-white);
-    border-bottom: var(--color-grey-light-2);
+    border-bottom: 1px solid var(--color-grey-light-2);
 
     display: flex;
     // space between divide el contenido disponible entre los elementos
@@ -43,6 +43,6 @@
     flex: 1;
 
     // Para testing mientras se programa el sidebar, quitar después
-    background-color: orange;
-    height: 80rem;
+    // background-color: orange;
+    // height: 80rem;
 }
