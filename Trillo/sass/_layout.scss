@@ -48,6 +48,8 @@
 }
 
 .detail {
+    // para que se herede tanto en description como en user-reviews
+    font-size: 1.4rem;
     display: flex;
     // para que la distancia del padding y el margin-right entre columnas sea la misma
     padding: 4.5rem;
@@ -56,7 +58,7 @@
 }
 
 .description {
-    font-size: 1.4rem;
+
     background-color: var(--color-white);
     box-shadow: var(--shadow-light);
     padding: 3rem;
@@ -70,4 +72,16 @@
 .user-reviews {
     // para que ocupe el espacio restante
     flex: 1;
+
+    // No es buena idea usar text-align center acá, porque también alinea el texto de las reviews.
+    // text-align: center;
+
+    // Para que todos los elementos estén en el centro (pero el objetivo principal es centrar el link de "Show all"
+    display: flex;
+    flex-direction: column;
+
+    // para hacer override del stretch, que hace que el link de "show all" ocupara todo el espacio disponible,
+    // haciendo que se viera un border-bottom enorme que cubria todo el width.
+    align-items: center;
+
 }
