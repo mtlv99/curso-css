@@ -4,6 +4,16 @@
     margin: 8rem auto;
     background-color: var(--color-grey-light-1);
     box-shadow: var(--shadow-dark);
+
+    // Para mantener el proyecto más simple, no se va a escribir el media-query manager acá.
+    // max-width: desktop-first approach.
+    @media only screen and (max-width: $bp-largest) {
+        margin: 0;
+        // Como se reduce el tamaño del font-size por defecto, las medida definida arriba (120rem)
+        // fallará, ya que ahora no será 120*10 = 1200px, si no más bien 120*8 = 960px.
+        max-width: 100%;
+        width: 100%; // solo para estar 100% seguros
+    }
 }
 
 .header {
@@ -17,10 +27,22 @@
     justify-content: space-between;
     // alinea los items en el cross axis
     align-items: center;
+
+    @media only screen and (max-width: $bp-smallest) {
+        // para enviar el search bar a un row aparte (recordar que también se cambió el order del searchbar)
+        flex-wrap: wrap;
+        align-content: space-around; // para controlar el espacio entre los rows del flex-wrap
+        // para que quepa todo el contenido se incrementa el height un poco
+        height: 11rem;
+    }
 }
 
 .content {
     display: flex;
+
+    @media only screen and (max-width: $bp-medium) {
+        flex-direction: column;
+    }
 }
 
 .sidebar {
@@ -55,6 +77,16 @@
     padding: 4.5rem;
     background-color: var(--color-grey-light-1);
     border-bottom: var(--line);
+
+    @media only screen and (max-width: $bp-medium) {
+        padding: 3rem;
+    }
+
+    // Cuidado con el orden! Siempre dejar el mas pequeño de ultimo para que sea el que se aplique
+    // (recordar especificidad, el ultimo gana, en caso de que haya conflictos entre propiedades)
+    @media only screen and (max-width: $bp-small) {
+        flex-direction: column;
+    }
 }
 
 .description {
@@ -67,6 +99,16 @@
     flex: 0 0 60%;
     // espacio entre las columnas
     margin-right: 4.5rem;
+
+    @media only screen and (max-width: $bp-medium) {
+        padding: 2rem;
+        margin-right: 3rem;
+    }
+
+    @media only screen and (max-width: $bp-small) {
+        margin-right: 0;
+        margin-bottom: 3rem;
+    }
 }
 
 .user-reviews {

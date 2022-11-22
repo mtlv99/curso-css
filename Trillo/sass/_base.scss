@@ -45,6 +45,14 @@ Grey dark 3: #999
     --line: 1px solid var(--color-grey-light-2);
 }
 
+// CSS no permite usar variables en los media-queries, asi que hay que usar variables de SASS para eso.
+// dividido entre 16 porque es el font-size por defecto de 'em'.
+$bp-largest: 75em; // 1200/16 = 75 (1200px)
+$bp-large: 68.75em; // 1100/16 = 68.75 (1100px)
+$bp-medium: 56.25em; // 900/16 = 56.25 (900px)
+$bp-small: 37.5em; // 600/16 = 37.5em (600px)
+$bp-smallest: 31.25em; // 500/16 = 31.25em (600px)
+
 
 * {
     margin: 0;
@@ -60,6 +68,14 @@ Grey dark 3: #999
 html {
     box-sizing: border-box;
     font-size: 62.5%; // 1rem = 10px, 10px/16px = 62.5%
+
+    // Para mantener el proyecto más simple, no se va a escribir el media-query manager acá.
+    // max-width: desktop-first approach.
+    @media only screen and (max-width: $bp-large) {
+        // lesson 86: writing media queries - Part 1
+        // para que sean 8px en vez de 10px por defecto de fuente
+        font-size: 50%; // 8/16 = 50%
+    }
 }
 
 body {
