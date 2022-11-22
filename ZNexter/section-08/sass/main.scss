@@ -1,0 +1,51 @@
+.container {
+    background-color: #eee;
+    width: 1000px;
+    margin: 30px auto;
+    
+    display: grid;
+    // 6 elementos = 2 rows * 3 columnas = 6 elementos.
+    // 2 rows
+    grid-template-rows: 150px 150px;
+    // 3 columns
+    grid-template-columns: 150px 150px 150px;
+
+    // en el curso se usa grid-row-grap y grid-column-gap, pero está obsoleta...
+    // row-gap: 30px;
+    // column-gap: 50px;
+
+    // Si el row-gap y el column-gap son el mismo, se puede simpliicar con 'gap'
+    // en el curso se usa grid-gap, pero está obsoleta...
+    gap: 30px;
+  }
+
+  .item {
+    padding: 20px;
+    font-size: 30px;
+    font-family: sans-serif;
+    color: white;
+
+    &--1 {
+      background-color: orange;
+    }
+
+    &--2 {
+      background-color: yellowgreen;
+    }
+    
+    &--3 {
+      background-color: violet;
+    }
+
+    &--4 {
+      background-color: palevioletred;
+    }
+
+    &--5 {
+      background-color: royalblue;
+    }
+
+    &--6 {
+      background-color: goldenrod;
+    }
+  }
