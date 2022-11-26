@@ -1,3 +1,170 @@
+// Responsive with auto-fit and auto-fill
+.container-autofit-autofill {
+  width: 1000px;
+  margin: 30px auto;
+  background-color: #ddd;
+
+  display: grid;
+  grid-template-rows: repeat(2, minmax(150px, min-content));
+  // auto-fill permite crear columnas de igual tamaño, con base las columnas especificadas
+  // en este caso solo hay una columna de 100px, entonces divide el resto en 100px también
+  // (porque el contenedor es de 1000px, entonces encuentra 900px disponibles que los reparte automaticamente
+  // entre secciones de 100px al resto de las columnas)
+  // grid-template-columns: repeat(auto-fill, 100px);
+  // con auto-fill hace algo similar, solo que a las columnas vacias les asigna un width de 0
+  // (puede ser confuso, pero los tracks están ahi presentes, inspeccionar con devtools)
+  // grid-template-columns: repeat(auto-fit, 100px);
+
+
+  // para demostrar layout responsive
+  width: 90%;
+  // esto permite hacer responsive layouts sin usar media queries
+  // el auto-fit crea las columnas necesarias.
+  // Entre los valores minmax sucede algo bastante util, el 1fr hace que utilice la mayor cantidad de espacio
+  // disponible en el cell, hasta llegar al minimo de 200px.
+  // Por ejemplo si el width del container es 610px en ese momento,
+  // calzará 3 columnas de poco más de 200px, al llegar a 600px, habran 3 columnas de 200px,
+  // y al llegar a 599px, se romperán las columnas y llegarán a haber solo 2.
+  // Se repite el ciclo hasta llegar a solo una columna, donde el minimo será 200px y de ahi no se encogerá más
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+  // para definir el tamaño del implicit grid
+  grid-auto-rows: 150px;
+
+  .item {
+    padding: 10px;
+    color: white;
+    font-family: sans-serif;
+    font-size: 30px;
+    background-color: gray;
+
+    &--1 { background-color: orange; }
+    &--2 { background-color: yellowgreen; }
+    &--3 { background-color: blueviolet; }
+    &--4 { background-color: palevioletred; }
+    &--5 { background-color: royalblue; }
+    &--6 { background-color: goldenrod; }
+    &--7 { background-color: crimson; }
+    &--8 { background-color: darkslategrey; color: lightgray; }
+  }
+}
+
+// Content functions (min-content, max-content and minmax()
+.container-content-functions {
+  width: 1000px;
+  margin: 30px auto;
+  background-color: #ddd;
+
+  display: grid;
+  // grid-template-rows: repeat(2, 150px);
+  // Usando min-content and max-content
+  // max-content adapta el track al espacio necesario para mostrar el contenido sin hacer linebreaks
+  // (comportamiento similar a (inline-block)
+  // min-content adapta el track al espacio necesario para mostrar el contenido HACIENDO linebreaks,
+  // en este caso la palabra más larga es "awesome", por lo que es la que toma de referencia para el track
+  // grid-template-columns: max-content 1fr 1fr min-content;
+
+  // para evitar el overflow del ultimo item, se setea min-content acá también
+  // grid-template-rows: repeat(2, min-content);
+  
+  
+  // Usando minmax function
+  width: 90%; // para demostrarlo es más facil con un ejemplo responsive
+  grid-template-rows: repeat(2, minmax(150px, min-content));
+
+  // en este caso, la columna siempre estará entre 200 y 300px, muy util para el responsive
+  grid-template-columns: minmax(200px, 300px) repeat(3, 1fr);
+  // acá en ambos se utiliza para definir un valor minimo cuando se alcance cierto limite que no debe sobrepasar
+  // grid-template-columns: minmax(150px, 50%) repeat(3, 1fr);
+  // grid-template-columns: minmax(150px, 1fr) repeat(3, 1fr);
+
+  .item {
+    padding: 10px;
+    color: white;
+    font-family: sans-serif;
+    font-size: 30px;
+    background-color: gray;
+
+    &--1 { background-color: orange; }
+    &--2 { background-color: yellowgreen; }
+    &--3 { background-color: blueviolet; }
+    &--4 { background-color: palevioletred; }
+    &--5 { background-color: royalblue; }
+    &--6 { background-color: goldenrod; }
+    &--7 { background-color: crimson; }
+    &--8 { background-color: darkslategrey; color: lightgray; }
+  }
+}
+
+// Alignment
+.container-alignment {
+  width: 1000px;
+  height: 1000px;
+  margin: 30px auto;
+  background-color: #ddd;
+
+  display: grid;
+  grid-template-rows: repeat(2, 100px);
+  grid-template-columns: repeat(2, 200px);
+
+  // grid-template-rows: repeat(2, 150px);
+  // grid-template-columns: repeat(2, .5fr);
+  gap: 30px;
+
+  grid-auto-rows: 80px;
+  grid-auto-columns: .5fr;
+
+  // grid-auto-flow: row;
+  // con dense, se llenarán todos los agujeros que se crean cuando los items se mueven de posicion
+  grid-auto-flow: row dense;
+
+  //align-* => vertical
+  //justify-* => horizontal
+
+
+  // Similar a flexbox, pero se puede alinear a ambos ejes.
+  // Son stretch por defecto, por eso ocupaban todo el espacio disponible del cell.
+  // Relativos al espacio completo que utilizan, por ejemplo el 4 y 7 ocupan más de 1 cell,
+  // están centrados al contenido que ocupan.
+  // Align grid items to grid areas
+  // palabra clave: items (items con respecto a areas)
+  align-items: center; // across the column axis (alineado vertical) // Stretch / center / end / start
+  justify-items: stretch; // across the row axis (alineado horizontal)
+
+  // Align grid tracks to grid container
+  // palabra clave: content (content [entire tracks] con respecto al contenedor)
+  // Para alinear el grid al elemento padre (es necesario que sobre espacio)
+  justify-content: center; // horizontalmente
+  align-content: center; //verticalmente
+
+
+  .item {
+    padding: 10px;
+    color: white;
+    font-family: sans-serif;
+    font-size: 30px;
+    background-color: orange;
+
+    &--4 {
+      background-color: palegoldenrod;
+      grid-row: 2 / span 3;
+      // para hacer override de align-items y justify-items
+      align-self: start;
+      justify-self: start;
+    }
+
+    &--6 {
+      background-color: lightblue;
+      grid-row: 2 / span 2;
+    }
+
+    &--7 {
+      background-color: palevioletred;
+      grid-column: 1 / -1;
+    }
+  }
+}
+
 // Implicit vs explicit grids
 .container-explicit-implicit {
   width: 1000px;
