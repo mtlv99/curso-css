@@ -13,3 +13,53 @@ $color-grey-dark-2: #6D5D4B;
 // FONT VARIABLES
 $font-primary: 'Nunito', sans-serif;
 $font-display: 'Josefin Sans', sans-serif;
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%; // 10px/16px = 62.5% -> 1rem = 10px
+}
+
+body {
+    font-family: $font-primary;
+    color: $color-grey-dark-2;
+}
+
+.container {
+    display: grid;
+    // Estas medidas pueden ser confusas entonces trataré de explicarlo lo mejor posible,
+    // si no revisitar con las dev tools.
+    // Recordar que:
+    // Row: ↔️ (horizontal)
+    // Column: ↕️ (vertical)
+    // Estas medidas serian para definir los ejes PERPENDICULARES del row y column, cuanto van a crecer.
+    // Para el row (recordar que es horizontal) seria crecimiento vertical
+    
+    // En cuanto a la posicion de los grid areas, el orden sería:
+    // header, features, story-pictures/story-content, homes, gallery y footer.
+
+    // min-content y auto pueden llegar a ser lo mismo (auto es el valor por defecto,
+    // ambos cumplen la tarea de hacer que el contenido quepa en el grid area).
+    grid-template-rows: 80vh min-content 40vw repeat(3, min-content);
+
+    // Para el column (recordar que es vertical) seria crecimiento horizontal
+    // grid-template-columns: min-content 1fr... (...);
+
+    // para los columns es normal usar un layout de 8 a 12 columnas.
+    // En este caso, los 8rem serian el sidebar, y los 1fr (con minmax) serian un tipo de "gutter" que podria ser
+    // utilizado para centrar el contenido en ciertos escenarios (centered section), y en otros podrian utilizarse para mostrar
+    // el contenido usando todo el width disponible (full-bleed sections).
+    // el minmax es para que el gutter siempre exista, si solo se pone 1fr pasará que cuando se encoge
+    // el viewport, el 1fr llegará a valer muy pocos pixeles, y el grid area no se podrá ver.
+    grid-template-columns: [sidebar-start] 8rem [sidebar-end full-start] minmax(6rem, 1fr) [center-start] repeat(8,
+    [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
+
+
+}
