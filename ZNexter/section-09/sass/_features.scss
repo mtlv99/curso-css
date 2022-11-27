@@ -1,4 +1,52 @@
 .features {
-    background-color: $color-grey-light-2;
-    grid-column: full-start / full-end;
+    // background-color: $color-grey-light-2;
+    grid-column: center-start / center-end;
+
+    margin: 15rem 0;
+
+    // un grid item también puede ser un grid al mismo tiempo (igual que flexbox)
+    display: grid;
+
+    // grid-template-columns: repeat(3, 1fr);
+    // hace el grid responsive.
+    // auto-fit: creates as many tracks as can fit, based on the width that we define.
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    gap: 6rem;
+
+    // no es necesario porque este es el comportamiento por defecto
+    // grid-template-rows: auto auto;
+    // para los items se alinen verticalmente al inicio (porque viene como stretch por defecto,
+    // y stretch crea mucho espacio entre el titulo y el texto)
+    align-items: start;
+}
+
+// Esto seria completamente reutilizable pero se coloca acá por razones de hacer la grabacion del curso
+// menos tediosa (saltar menos entre archivos)
+.feature {
+
+    // third level grid container
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    row-gap: 1.5rem;
+    column-gap: 2.5rem;
+
+    // Mismo caso de arriba...
+    // grid-template-rows: auto auto;
+
+    &__icon {
+        fill: $color-primary;
+        width: 4.5rem;
+        height: 4.5rem;
+        // el -1 no es el final del grid, si no el final del explicit grid.
+        // como no se definieron template-rows, todo el grid es implicito, por lo tanto
+        // no va a funcionar.
+        // grid-row: 1 / -1;
+        // Lo que si se puede usar es un span
+        grid-row: 1 / span 2;
+        transform: translateY(-1rem);
+    }
+
+    &__text {
+        font-size: 1.7rem;
+    }
 }
