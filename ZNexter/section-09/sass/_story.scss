@@ -6,10 +6,63 @@
     &__pictures {
         background-color: $color-primary;
         grid-column: full-start / col-end 4;
+        // bg-image relativa al output de css.
+        // un linear gradient del mismo color, pero con transparencia
+        background-image: linear-gradient(rgba($color-primary, .5), rgba($color-primary, .5)), url(../img/back.jpg);
+
+        display: grid;
+
+        // grid de 6x6, para que una imagen ocupe todos los grid area del centro,
+        // y deje un "borde" de grid areas rodeandola
+        grid-template-rows: repeat(6, 1fr);
+        grid-template-columns: repeat(6, 1fr);
+
+        // las imagenes se comportan diferente al resto de elementos en los grids
+        // debido a que tienen un aspect ratio definido (intrinsic aspect ratio), y tratarán de conservarlo,
+        // por lo que NO se van a estirar para tratar de ocupar todo el espacio disponible.
+        // Es necesario poner el align-items para que al menos la imagen se vea centrada
+        // (aunque sobre espacio arriba y abajo).
+        align-items: center;
+    }
+
+    &__img--1 {
+        width: 100%;
+        grid-row: 2 / 6;
+        grid-column: 2 / 6;
+        box-shadow: 0 2rem 5rem rgba($color-black, .1);
+    }
+    
+    &__img--2 {
+        // para que haya overflow de la imagen y se vea encima del grid de al lado.
+        width: 115%;
+        grid-row: 4 / 6;
+        grid-column: 4 / 7;
+        // para poder ver la imagen encima del otro grid
+        z-index: 20;
+        box-shadow: 0 2rem 5rem rgba($color-black, .2);
     }
 
     &__content {
         background-color: $color-grey-light-1;
         grid-column: col-start 5 / full-end;
+
+        padding: 6rem 8vw;
+
+        // Con Flex deberia ser mejor por ser un escenario unidimensional
+        // display: flex;
+        // flex-direction: column;
+        // justify-content: center;
+        // align-items: flex-start;
+
+        // pero acá se usará grid por igual para ver la diferencia en lineas de codigo
+        display: grid;
+        align-content: center;
+        justify-items: start;
+    }
+
+    &__text {
+        font-size: 1.5rem;
+        font-style: italic;
+        margin-bottom: 4rem;
     }
 }
