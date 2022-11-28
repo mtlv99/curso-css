@@ -1,4 +1,66 @@
 .header {
     background-color: $color-grey-dark-1;
     grid-column: full-start / col-end 6;
+    background-image: linear-gradient(rgba($color-secondary, .93), rgba($color-secondary, .93)), url(../img/hero.jpeg);
+    background-size: cover;
+    background-position: center;
+    padding: 8rem;
+    padding-top: 4rem;
+
+    display: grid;
+    // el grid ya tiene definido el tamaño como 80vw debido a que así se definió en el parent grid (el del layout)
+    // usar 'vw' nos permite tener un espaciado bastante dinamico en los rows que tengan 1fr (revisar con las devtools)
+    grid-template-rows: 1fr min-content 6rem 1fr;
+    // para que solo ocupe el espacio maximo necesario, por defecto estaba en auto
+    grid-template-columns: max-content;
+    justify-content: center;
+    row-gap: 1.5rem;
+
+    &__logo {
+        height: 3rem;
+        justify-self: center;
+    }
+
+
+    &__btn {
+        align-self: start;
+        justify-self: start;
+    }
+
+    // El texto puro también puede ser un elemento de un grid
+    &__seenon-text {
+        font-size: 1.6rem;
+        color: $color-grey-light-2;
+        
+        display: grid;
+        // NO usar min-content en el column del medio, ya que rompería el texto.
+        grid-template-columns: 1fr max-content 1fr;
+        column-gap: 1.5rem;
+        align-items: center;
+
+        &::before,
+        &::after {
+            content: "";
+            height: 1px;
+            display: block;
+            background-color: currentColor;
+        }
+    }
+
+    &__seenon-logos {
+
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        column-gap: 3rem;
+        justify-items: center;
+     
+        img {
+            // como todos tienen diferentes width, es mejor usar height acá,
+            // para que cuando estén lado a lado no se vean extrañas y desalineadas
+            // (comparar con width)
+            // width: 2.5rem;
+            height: 2.5rem;
+            filter: brightness(70%);
+        }
+    }
 }

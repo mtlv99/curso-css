@@ -1,4 +1,35 @@
 .realtors {
     background-color: $color-secondary;
     grid-column: col-start 7 / full-end;
+    padding: 3rem;
+
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    // este center no afecta el resto, porque esos tienen max-content (y más bien son los que definen el tamaño del grid)
+    justify-items: center;
+    row-gap: 2rem;
+
+    &__list {
+        display: grid;
+        // min-content porque ya se seteó en __img que serían 7rem, y max-content para no quebrar el texto
+        grid-template-columns: min-content max-content;
+        column-gap: 2rem;
+        // para que el gap sea relativo al height dinamicamente, y para que en pantallas grandes se vea más grande, y no
+        // con mucho espacio vacio.
+        row-gap: 5vh;
+        align-items: center;
+    }
+
+    &__img {
+        width: 7rem;
+        border-radius: 50%;
+        display: block;
+    }
+
+    &__sold {
+        text-transform: uppercase;
+        color: $color-grey-light-2;
+        margin-top: -3px;
+    }
 }
