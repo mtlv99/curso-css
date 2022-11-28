@@ -10,6 +10,10 @@
     justify-items: center;
     row-gap: 2rem;
 
+    @media only screen and (max-width: $bp-medium) {
+        grid-column: 1 / -1;
+    }
+
     &__list {
         display: grid;
         // min-content porque ya se seteó en __img que serían 7rem, y max-content para no quebrar el texto
@@ -19,6 +23,17 @@
         // con mucho espacio vacio.
         row-gap: 5vh;
         align-items: center;
+
+        @media only screen and (max-width: $bp-medium) {
+            // para que hayan 6 columnas en vez de solo 2, para acomodar todos los items lado a lado
+            // (originalmente solo habian 2)
+            grid-template-columns: repeat(3, min-content max-content);
+        }
+
+        // basicamente se quiere volver al estado por defecto
+        @media only screen and (max-width: $bp-small) {
+            grid-template-columns: min-content max-content;
+        }
     }
 
     &__img {
@@ -32,4 +47,5 @@
         color: $color-grey-light-2;
         margin-top: -3px;
     }
+
 }

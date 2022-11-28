@@ -17,6 +17,13 @@ $color-grey-dark-2: #6D5D4B;
 $font-primary: 'Nunito', sans-serif;
 $font-display: 'Josefin Sans', sans-serif;
 
+// RESPONSIVE BREAKPOINTS
+// 1em = 16px
+$bp-largest: 75em; // 1200px/16px = 75em [1200px]
+$bp-large: 62.5em; // 1000px/16px = 62.5em [1000px]
+$bp-medium: 50em; // 800px/16px = 50em [800px]
+$bp-small: 37.5em; // 600px/16px = 37.5em [600px]
+
 *,
 *::before,
 *::after {
@@ -28,6 +35,10 @@ $font-display: 'Josefin Sans', sans-serif;
 html {
     box-sizing: border-box;
     font-size: 62.5%; // 10px/16px = 62.5% -> 1rem = 10px
+
+    @media only screen and (max-width: $bp-largest) {
+        font-size: 50%;
+    }
 }
 
 body {
@@ -65,4 +76,30 @@ body {
     [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
 
 
+    // Nota:
+    // Hay un shorthand para grid-template-columns y grid-template-rows llamado
+    // grid-template, que se utiliza como
+    // grid-template: [valor de grid-template-rows] / [ valor de grid-template-columns];
+    // Pero puede ser muy confuso de usar con templates muy largos.
+
+    // Para el responsive, se quitó el column del principio, y se agregó un row al principio.
+    // También se especifica la posición dentro del archivo del sidebar
+    // IMPORTANTE: como se declararon los line names, todo sigue funcionando igual.
+    // De lo contrario, si se hubiera hecho con numeros, habría que ajustar TODO el contenido,
+    // ya que por numeros cambiaría de posición ya que se quitó uno.
+    @media only screen and (max-width: $bp-large) {
+        grid-template-rows: 6rem 80vh min-content 40vw repeat(3, min-content);
+        grid-template-columns: [full-start] minmax(6rem, 1fr) [center-start] repeat(8,
+        [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];    
+    }
+
+    // Se agregó un nuevo row para calzar los realtors, y el header ahora ocupa 100vh (menos los 6rem del sidebar)
+    // también se cambió el 5to row de 40vw a -> min-content
+    // PERO, como todas al final terminaron siendo min-content, es posible eliminar todas,
+    // y dejar que el automatic placement algorithm haga su trabajo.
+    // Las unicas que hay que modificar son el sidebar y el header, el resto estará determinado por el tamaño de su contenido.
+    @media only screen and (max-width: $bp-medium) {
+        // grid-template-rows: 6rem calc(100vh - 6rem) min-content min-content min-content repeat(3, min-content);  
+        grid-template-rows: 6rem calc(100vh - 6rem);  
+    }
 }

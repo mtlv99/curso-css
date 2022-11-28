@@ -18,6 +18,22 @@
     // para los items se alinen verticalmente al inicio (porque viene como stretch por defecto,
     // y stretch crea mucho espacio entre el titulo y el texto)
     align-items: start;
+
+    // Ejemplo pequeño de progressive enhancement - ver más en .feature
+    // float: left;
+    // width: 33.3333%;
+    // margin-bottom: 6rem;
+    // hay unas propiedades que grid y flex ignoran, como:
+    // floats, display, inline-block, display: table-cell, vertical-align
+    // (comentar las siguientes propiedades arriba)
+    // @supports(display: grid) {
+    //     display: grid;
+    //     grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    //     gap: 6rem;
+    //     align-items: start;
+    //     width: auto;
+    // }
+    
 }
 
 // Esto seria completamente reutilizable pero se coloca acá por razones de hacer la grabacion del curso
@@ -32,6 +48,17 @@
 
     // Mismo caso de arriba...
     // grid-template-rows: auto auto;
+
+    // Ejemplo pequeño de progressive enhancement
+    // float: left;
+    // width: 33.3333%;
+    // margin-bottom: 6rem;
+    // // hay unas propiedades que grid y flex ignoran, como:
+    // // floats, display, inline-block, display: table-cell, vertical-align
+    // @supports(display: grid) {
+    //     width: auto;
+    //     margin-bottom: 0;
+    // }
 
     &__icon {
         fill: $color-primary;

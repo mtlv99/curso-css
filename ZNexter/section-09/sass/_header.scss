@@ -10,11 +10,19 @@
     display: grid;
     // el grid ya tiene definido el tamaño como 80vw debido a que así se definió en el parent grid (el del layout)
     // usar 'vw' nos permite tener un espaciado bastante dinamico en los rows que tengan 1fr (revisar con las devtools)
-    grid-template-rows: 1fr min-content 6rem 1fr;
+    grid-template-rows: 1fr min-content minmax(6rem, min-content) 1fr;
     // para que solo ocupe el espacio maximo necesario, por defecto estaba en auto
-    grid-template-columns: max-content;
+    grid-template-columns: minmax(min-content, max-content);
     justify-content: center;
     row-gap: 1.5rem;
+
+    @media only screen and (max-width: $bp-medium) {
+        grid-column: 1 / -1;
+    }
+
+    @media only screen and (max-width: $bp-small) {
+        padding: 5rem;
+    }
 
     &__logo {
         height: 3rem;
@@ -53,13 +61,18 @@
         grid-template-columns: repeat(4, 1fr);
         column-gap: 3rem;
         justify-items: center;
+        align-items: center;
      
         img {
             // como todos tienen diferentes width, es mejor usar height acá,
             // para que cuando estén lado a lado no se vean extrañas y desalineadas
             // (comparar con width)
             // width: 2.5rem;
-            height: 2.5rem;
+            // height: 2.5rem;
+
+            // para hacerlo responsive, se utiliza mejor:
+            max-height: 2.5rem;
+            max-width: 100%;
             filter: brightness(70%);
         }
     }
